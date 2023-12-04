@@ -1,0 +1,19 @@
+{% form 'contact' %}
+{{ form.errors | default_errors }}
+
+<div class="email">
+    <label for="email">Email</label>
+    <input id="email" type="email" name="contact[email]" />
+</div>
+
+
+<div class="message">
+    <label for="message">Message</label>
+
+    <textarea id="message" type="message" name="contact[body]" />
+</div>
+
+<div class="submit">
+    <input type="submit" value="Create" />
+</div>
+{% endform %}

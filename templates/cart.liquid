@@ -1,0 +1,82 @@
+<style>
+  body {
+    padding: 0 22px 80px;
+  }
+
+  ul {
+    list-style: none;
+  }
+
+  li {
+    padding: 1.2rem;
+    border: 1px solid #00000022;
+    width: fit-content;
+    margin-bottom: 1.4rem;
+  }
+
+  a {
+    text-decoration: none;
+  }
+</style>
+
+{% form 'cart'
+  , cart %}
+
+  <h1>Cart</h1>
+
+  {% if cart.empty? == false %}
+    <ul>
+      {% for item in cart.items %}
+
+        <li>
+          <a href="{{ item.url }}">
+
+            <img
+              src="{{ item.image | image_url }}"
+              alt=""
+              loading="eager"
+              width="150">
+
+            <div class="item-info">
+              <h3>{{ item.title }}</h3>
+              <h4>{{ item.final_line_price | money }}</h4>
+
+            </div>
+          </a>
+
+          <input
+            type="number"
+            name="updates[]"
+            value="{{ item.quantity }}"
+            min="1">
+
+          <a href="{{ item.url_to_remove }}">Remove item</a>
+        </li>
+
+      {% endfor %}
+    </ul>
+
+    <p>Total:
+      <strong>{{ cart.total_price | money }}</strong>
+    </p>
+
+    <button type="submit" name="checkout">Checkout</button>
+
+    <button
+      type="submit"
+      name="update"
+      style="opacity: 0; visibility:hidden;">update</button>
+  {% else %}
+    <p>this bitch empty. add some stuff</p>
+  {% endif %}
+
+
+{% endform %}
+
+<script>
+    document.querySelectorAll('input[type=number]').forEach(e => {
+        e.addEventListener('change', evt => {
+            document.querySelector('button[name=update]').click()
+        })
+    })
+</script>

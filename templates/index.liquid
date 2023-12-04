@@ -1,0 +1,20 @@
+<section>
+    <h1>{{ collections['frontpage'].title }}</h1>
+
+    <ul>
+        {% for product in collections['frontpage'].products %}
+        <li>
+            <a href="{{ product.url }}">
+
+                <img src="{{ product.featured_image | image_url }}" alt="" loading="eager">
+
+                <div class="product-info">
+                    <h3>{{ product.title }}</h3>
+                    <h4>{{ product.price | money }}</h4>
+                </div>
+            </a>
+
+        </li>
+        {% endfor %}
+    </ul>
+</section>
